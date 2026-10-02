@@ -1,4 +1,4 @@
--- OaaS Foundation / phase 1
+-- Henderson Cloud foundation / phase 1
 -- This migration intentionally creates no demo tenants or production sample data.
 
 create table if not exists public.user_profiles (
@@ -103,7 +103,6 @@ as $$
     where m.organization_id = p_organization_id
       and m.user_id = (select auth.uid())
       and m.status = 'active'
-      and coalesce((select auth.jwt() ->> 'aal'), 'aal1') = 'aal2'
   );
 $$;
 
@@ -120,7 +119,6 @@ as $$
     where m.organization_id = p_organization_id
       and m.user_id = (select auth.uid())
       and m.status = 'active'
-      and coalesce((select auth.jwt() ->> 'aal'), 'aal1') = 'aal2'
       and rp.permission_key = p_permission_key
   );
 $$;
@@ -218,7 +216,6 @@ declare
   new_member_id uuid;
 begin
   if actor_id is null then raise exception 'Authentication required' using errcode = '28000'; end if;
-  if coalesce((select auth.jwt() ->> 'aal'), 'aal1') <> 'aal2' then raise exception 'MFA verification required' using errcode = '42501'; end if;
   if p_name is null or char_length(trim(p_name)) not between 2 and 120 then raise exception 'Invalid organization name' using errcode = '22023'; end if;
   if p_slug is null or p_slug !~ '^[a-z0-9]+(-[a-z0-9]+)*$' or char_length(p_slug) not between 3 and 48 then raise exception 'Invalid organization slug' using errcode = '22023'; end if;
   if p_country is null or p_country !~ '^[A-Z]{2}$' then raise exception 'Invalid country code' using errcode = '22023'; end if;

@@ -8,7 +8,7 @@ create table if not exists public.platform_owners (
 );
 
 -- The bootstrap address is the owner's address supplied for this platform.
--- Claiming still requires an authenticated session and AAL2/MFA.
+-- Claiming requires an authenticated session; MFA is optional.
 create table if not exists public.platform_owner_bootstrap (
   id boolean primary key default true check (id),
   email text not null unique,

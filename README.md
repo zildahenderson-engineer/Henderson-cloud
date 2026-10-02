@@ -1,10 +1,10 @@
 # Henderson Cloud — fundação empresarial
 
-Aplicação multi-tenant em **Next.js 16 + TypeScript**, com **Supabase Auth/Postgres** e deploy preparado para **Vercel**. Esta entrega implementa a fundação da Fase 1 do prompt mestre; não representa o produto final nem inclui dados fictícios persistentes.
+Aplicação multi-tenant em **Next.js 16 + TypeScript**, com **Supabase Auth/Postgres** e deploy preparado para **Vercel**. A base funcional inclui autenticação, onboarding, organizações, RBAC, auditoria, CRM inicial e control plane da proprietária.
 
 ## Estado atual — 29/09/2026
 
-A migration inicial foi aplicada ao projeto Supabase indicado pelo usuário e verificada: 8 tabelas, RLS em todas, 11 políticas, 6 triggers, 6 funções e 7 permissões-base. A migration do CRM e a control plane do Platform Owner também foram aplicadas. Não foram criados tenants ou usuários de demonstração. O projeto `oaas-platform` existe na Vercel, mas ainda não há deployment persistente; a prévia do Sandbox é temporária e pode dormir quando a sessão fica inativa.
+A migration inicial foi aplicada ao projeto Supabase indicado pelo usuário e verificada: 8 tabelas, RLS em todas, 11 políticas, 6 triggers, 6 funções e 7 permissões-base. As migrations do CRM, da control plane Platform Owner e do acesso normal por e-mail e senha também foram aplicadas. Não são criados tenants ou usuários de demonstração automaticamente fora do bootstrap autorizado da proprietária. O código-fonte está publicado no repositório Henderson Cloud e pronto para deployment persistente na Vercel.
 
 ## Incluído nesta fase
 
@@ -17,11 +17,10 @@ A migration inicial foi aplicada ao projeto Supabase indicado pelo usuário e ve
 - CRM inicial de leads: listagem tenant-scoped, criação validada no servidor, remoção autorizada, auditoria e permissões granulares.
 - Área privada `/platform-admin` para a proprietária do software: KPIs globais, tenants, usuários, leads e auditoria em visão somente leitura; bootstrap restrito ao e-mail proprietário; MFA opcional.
 
-## O que ainda está pendente
+## Próximas evoluções de produto
 
-- Reconciliar o histórico da migration no Supabase CLI antes de executar futuras migrations via `supabase db push` (ela foi aplicada pelo SQL Editor do dashboard; veja `DATABASE.md`).
-- Validar confirmação de e-mail, URLs de redirect, SMTP e enrollment/verificação TOTP no projeto Supabase.
-- Revalidar o escopo Vercel e as variáveis públicas do projeto; completar o envio da fonte via CLI ou repositório Git e publicar uma prévia.
+- Reconciliar o histórico da migration no Supabase CLI antes de executar futuras migrations via `supabase db push` (as primeiras foram aplicadas pelo SQL Editor do dashboard; veja `DATABASE.md`).
+- Validar SMTP e templates de confirmação de e-mail no projeto Supabase antes do lançamento comercial.
 - Executar os testes pgTAP de isolamento entre tenants contra uma instância Supabase/Postgres local.
 - Cobrança, financeiro, integrações e automações ficam para fases posteriores. O CRM continua com pipeline, contatos, atividades e vendas em evoluções seguintes.
 
