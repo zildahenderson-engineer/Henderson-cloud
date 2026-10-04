@@ -47,8 +47,7 @@ export function AuthForm({ configured, initialError = "" }: { configured: boolea
       if (mode === "sign-in") {
         const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
         if (authError) { setError("Não foi possível entrar. Confira o e-mail e a senha ou recupere seu acesso."); return; }
-        router.replace(email === "zildahenderson9@gmail.com" ? "/platform-admin" : "/");
-        router.refresh();
+        window.location.assign(email === "zildahenderson9@gmail.com" ? "/platform-admin" : "/");
       } else if (mode === "sign-up") {
         const { data, error: authError } = await supabase.auth.signUp({
           email, password,
