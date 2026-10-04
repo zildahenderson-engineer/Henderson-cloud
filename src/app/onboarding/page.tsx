@@ -12,7 +12,7 @@ export default async function OnboardingPage() {
   let ownerProvisioningError = false;
   if (user.email?.toLowerCase() === "zildahenderson9@gmail.com") {
     const { data: claimed } = await supabase.rpc("claim_platform_owner");
-    if (claimed) redirect("/app");
+    if (claimed) redirect("/platform-admin");
     ownerProvisioningError = true;
   }
   const { data: memberships } = await supabase.from("organization_members").select("organization_id").eq("user_id", user.id).eq("status", "active").limit(1);

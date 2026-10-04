@@ -15,7 +15,8 @@ export default async function MfaPage({ searchParams }: { searchParams: Promise<
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
   const isPlatformOwner = user.email?.toLowerCase() === "zildahenderson9@gmail.com";
-  const effectiveNextPath = isPlatformOwner ? "/" : nextPath;
+  if (isPlatformOwner) redirect("/platform-admin");
+  const effectiveNextPath = nextPath;
   const { data: assurance } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
   if (assurance?.currentLevel === "aal2") redirect(effectiveNextPath);
   const { data: factorData } = await supabase.auth.mfa.listFactors();

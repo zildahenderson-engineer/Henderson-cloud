@@ -8,7 +8,7 @@ export async function getAuthenticatedEntryPath() {
   if (!user) return null;
 
   if (user.email?.toLowerCase() === PLATFORM_OWNER_EMAIL) {
-    return "/app";
+    return "/platform-admin";
   }
 
   const { data: membership } = await supabase
