@@ -45,9 +45,10 @@ export function AuthForm({ configured, initialError = "" }: { configured: boolea
       const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
       const redirectOrigin = configuredOrigin || window.location.origin;
       if (mode === "sign-in") {
-        const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-        if (authError) { setError("Não foi possível entrar. Confira o e-mail e a senha ou recupere seu acesso."); return; }
-        window.location.assign(email === "zildahenderson9@gmail.com" ? "/platform-admin" : "/");
+        const response = await fetch("/api/auth/sign-in", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
+        const result = await response.json() as { error?: string; destination?: string };
+        if (!response.ok) { setError(result.error ?? "Não foi possível entrar. Confira o e-mail e a senha ou recupere seu acesso."); return; }
+        window.location.assign(result.destination ?? "/");
       } else if (mode === "sign-up") {
         const { data, error: authError } = await supabase.auth.signUp({
           email, password,
