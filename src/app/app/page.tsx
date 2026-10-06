@@ -30,11 +30,11 @@ export default async function DashboardPage() {
         {auditEvents.length ? <div className="divide-y divide-slate-100">{auditEvents.map((event) => <div key={event.id} className="flex items-start gap-3 px-5 py-4"><span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f1f5f3] text-[#54776a]"><Clock3 size={14} /></span><div className="min-w-0 flex-1"><p className="text-[12px] leading-5 text-slate-700"><span className="font-semibold">{actionLabel[event.action] ?? event.action.toLowerCase()}</span> · {event.resource_type.replaceAll("_", " ")}</p><p className="mt-1 text-[10px] text-slate-400">{formatter.format(new Date(event.occurred_at))}</p></div><span className="pill">{event.action}</span></div>)}</div> : <div className="empty-state"><div><span className="empty-icon mx-auto"><Activity size={18} /></span><p className="mt-4 text-[13px] font-semibold text-slate-700">Ainda não há atividade</p><p className="mx-auto mt-1 max-w-xs text-[11px] leading-5 text-slate-400">As ações relevantes desta organização aparecerão aqui quando forem realizadas.</p></div></div>}
       </section>
       <section className="card">
-        <div className="panel-heading"><h2 className="panel-title">Henderson Cloud · Fase 1</h2><span className="pill">Fase 1</span></div>
+        <div className="panel-heading"><h2 className="panel-title">Henderson Cloud · operação</h2><span className="pill">Ativo</span></div>
         <div className="panel-body">
-          <p className="text-[12px] leading-6 text-slate-500">A organização já possui isolamento por tenant, papéis iniciais e auditoria no banco de dados.</p>
+          <p className="text-[12px] leading-6 text-slate-500">A organização possui isolamento por tenant, papéis, auditoria e módulos operacionais com dados persistidos no banco.</p>
           <div className="mt-4 grid gap-3">
-            {["Identidade da organização", "Membros e funções", "Controles de segurança", "Histórico de auditoria"].map((item, index) => <div key={item} className="flex items-center gap-2.5 text-[11px] text-slate-600"><span className="grid h-5 w-5 place-items-center rounded-full bg-[#e8f3ed] text-[#27614c]"><CircleCheck size={12} /></span><span>{item}</span><span className="ml-auto text-[9px] text-slate-400">{index < 2 ? "ATIVO" : "BASE"}</span></div>)}
+            {["Identidade da organização", "Membros e funções", "Módulos operacionais", "Histórico de auditoria"].map((item) => <div key={item} className="flex items-center gap-2.5 text-[11px] text-slate-600"><span className="grid h-5 w-5 place-items-center rounded-full bg-[#e8f3ed] text-[#27614c]"><CircleCheck size={12} /></span><span>{item}</span><span className="ml-auto text-[9px] text-slate-400">ATIVO</span></div>)}
           </div>
           <a href="/app/organization" className="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold text-[#145b52] hover:underline">Revisar organização <span aria-hidden="true">→</span></a>
         </div>

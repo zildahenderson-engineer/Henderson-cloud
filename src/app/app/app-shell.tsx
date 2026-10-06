@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Activity, Building2, BriefcaseBusiness, ChevronDown, ClipboardList, LayoutDashboard, LockKeyhole, LogOut, Menu, ShieldCheck, Users, X } from "lucide-react";
+import { Activity, Building2, BriefcaseBusiness, ChevronDown, CircleDollarSign, ClipboardList, FileText, FolderKanban, LayoutDashboard, LockKeyhole, LogOut, Menu, ShieldCheck, Users, X } from "lucide-react";
 import { signOut } from "./actions";
 import type { WorkspaceContext } from "@/lib/workspace";
 
@@ -12,10 +12,13 @@ const primaryLinks = [
   { href: "/app/organization", label: "Organização", icon: Building2 },
   { href: "/app/team", label: "Equipe e acessos", icon: Users },
   { href: "/app/crm", label: "CRM e vendas", icon: BriefcaseBusiness },
+  { href: "/app/financeiro", label: "Financeiro", icon: CircleDollarSign },
+  { href: "/app/projetos", label: "Projetos", icon: FolderKanban },
+  { href: "/app/documentos", label: "Documentos", icon: FileText },
   { href: "/app/security", label: "Segurança", icon: LockKeyhole },
   { href: "/app/audit", label: "Auditoria", icon: ClipboardList },
 ];
-const upcoming = ["Financeiro", "Projetos", "Documentos", "Automações", "AI Hub"];
+const upcoming = ["Automações", "AI Hub"];
 
 function Sidebar({ context, onNavigate }: { context: WorkspaceContext; onNavigate?: () => void }) {
   const pathname = usePathname();
@@ -31,7 +34,7 @@ function Sidebar({ context, onNavigate }: { context: WorkspaceContext; onNavigat
         const active = href === "/app" ? pathname === href : pathname.startsWith(href);
         return <Link key={href} href={href} className={`nav-link ${active ? "active" : ""}`} onClick={onNavigate}><Icon size={16} strokeWidth={1.8} /><span>{label}</span></Link>;
       })}
-      <p className="nav-label mt-6">Em construção</p>
+      <p className="nav-label mt-6">Próximas integrações</p>
       {upcoming.map((label) => <div key={label} className="flex min-h-[38px] items-center justify-between px-[11px] text-[12px] text-slate-400"><span>{label}</span><span className="text-[9px] font-medium uppercase tracking-wide">Fase 2+</span></div>)}
     </nav>
     <div className="sidebar-foot">
